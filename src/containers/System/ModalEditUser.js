@@ -3,7 +3,7 @@ import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { emitter } from "../../utils/emitter";
-class ModalUser extends Component {
+class ModalEditUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,45 +14,13 @@ class ModalUser extends Component {
       phoneNumber: "",
       address: "",
     };
-    this.listenToEmitter();
   }
-  listenToEmitter() {
-    emitter.on("EVENT_CLEAR_MODAL_DATA", () => {
-      this.setState({
-        email: "",
-        password: "",
-        firstName: "",
-        lastName: "",
-        phoneNumber: "",
-        address: "",
-      });
-    });
-  }
+
   componentDidMount() {}
   toggle = () => {
     this.props.toggleFromParent();
   };
   handleOnChangeInput = (event, id) => {
-    //bad code, modify state
-    /**
-     * this.state = {
-     * email:'',
-     * password:'',
-     *
-     * }
-     * this.state.email = this.state['email']
-     */
-    // this.state[id] = event.target.value;
-
-    // this.setState(
-    //   {
-    //     ...this.state,
-    //   },
-    //   () => {
-    //     console.log("check bad code: ", this.state);
-    //   }
-    // );
-    //good code
     let copyState = { ...this.state };
     copyState[id] = event.target.value;
     this.setState({ ...copyState });
@@ -99,7 +67,7 @@ class ModalUser extends Component {
             this.toggle();
           }}
         >
-          CREAT A NEW USER
+          Edit USER
         </ModalHeader>
         <ModalBody>
           <div className="modal-user-body">
@@ -199,4 +167,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalUser);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalEditUser);
