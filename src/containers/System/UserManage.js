@@ -6,6 +6,7 @@ import {
   getAllusers,
   createNewUserService,
   deleteUserService,
+  editUserService,
 } from "../../services/userService";
 import ModalUser from "./ModalUser";
 import ModalEditUser from "./ModalEditUser";
@@ -15,7 +16,9 @@ class UserManage extends Component {
     super(props);
     this.state = {
       arrUsers: [],
-      IsOpenModalUser: false,
+      isOpenModalUser: false,
+      isOpenModalEditUser: false,
+      userEdit: {},
     };
   }
 
@@ -32,12 +35,17 @@ class UserManage extends Component {
   };
   handleAddNewUser = () => {
     this.setState({
-      IsOpenModalUser: true,
+      isOpenModalUser: true,
     });
   };
   toggleUserModal = () => {
     this.setState({
-      IsOpenModalUser: !this.state.IsOpenModalUser,
+      isOpenModalUser: !this.state.isOpenModalUser,
+    });
+  };
+  toggleUserEditModal = () => {
+    this.setState({
+      isOpenModalEditUser: !this.state.isOpenModalEditUser,
     });
   };
   creatNewUser = async (data) => {
@@ -47,7 +55,7 @@ class UserManage extends Component {
         alert(response.errMessage);
       } else {
         await this.getAllUserFromReact();
-        this.setState({ IsOpenModalUser: false });
+        this.setState({ isOpenModalUser: false });
         emitter.emit("EVENT_CLEAR_MODAL_DATA", { id: "your id" });
       }
     } catch (e) {
@@ -68,6 +76,24 @@ class UserManage extends Component {
       console.log(error);
     }
   };
+  handleEditUser = (user) => {
+    this.setState({ isOpenModalEditUser: true, userEdit: user });
+  };
+  doEditUser = async (user) => {
+    try {
+      let res = await editUserService(user);
+      if (res && res.errCode === 0) {
+        this.setState({
+          isOpenModalEditUser: false,
+        });
+        await this.getAllUserFromReact();
+      } else {
+        alert(res.errCode);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   // Life cycle
   //   - Run component
   //   - 1. Run construct --> init state
@@ -78,15 +104,19 @@ class UserManage extends Component {
     return (
       <div className="users-container">
         <ModalUser
-          isOpen={this.state.IsOpenModalUser}
+          isOpen={this.state.isOpenModalUser}
           toggleFromParent={this.toggleUserModal}
           creatNewUser={this.creatNewUser}
         />
-        <ModalEditUser
-          isOpen={true}
-          // toggleFromParent={this.toggleUserModal}
-          // creatNewUser={this.creatNewUser}
-        />
+        {this.state.isOpenModalEditUser && (
+          <ModalEditUser
+            isOpen={this.state.isOpenModalEditUser}
+            toggleFromParent={this.toggleUserEditModal}
+            currentUser={this.state.userEdit}
+            // creatNewUser={this.creatNewUser}
+            editUser={this.doEditUser}
+          />
+        )}
         <div className="title text-center">Manage users with hoidanit</div>
         <div className="mx-1">
           <button
@@ -121,7 +151,10 @@ class UserManage extends Component {
                       <td>{item.address}</td>
 
                       <td>
-                        <button className="btn-edit">
+                        <button
+                          className="btn-edit"
+                          onClick={() => this.handleEditUser(item)}
+                        >
                           <i className="fas fa-pencil-alt"></i>
                         </button>
                         <button
