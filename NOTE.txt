@@ -1,0 +1,3 @@
+Thư viện cho carousel   
+    npm install --save react-slick@0.28.1
+    npm install --save slick-carousel@1.8.1

@@ -1,4 +1,26 @@
 {
+    "homeheader": {
+        "specialty": "Medical specialty",
+        "searchdoctor" : "Find a doctor by specialty",
+        "health-facility": "Healtth facility",
+        "select-room": "Choose hospital",
+        "doctor": "Doctor",
+        "select-doctor": "Choose a doctor",
+        "fee": "Health service",
+        "check-health": "Health Check",
+        "support": "Support"
+    },
+    "banner":{
+        "title1": "MEDICAL FLATFORM",
+        "title2": "HEALTH MAINTENANCE ORGANIZATION",
+        "child1": "Specialist examination",
+        "child2": "Remote examination",
+        "child3": "General examination",
+        "child4": "Xét nghiệm Y học",
+        "child5": "Medical Test",
+        "child6": "Dental examination"
+
+    },
     "common": {
         "add": "Add",
         "edit": "Edit",
