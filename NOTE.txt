@@ -1,3 +1,11 @@
 Thư viện cho carousel   
     npm install --save react-slick@0.28.1
     npm install --save slick-carousel@1.8.1
+
+//==============================================
+const mapStateToProps = (state) => {
+  return {
+    started: state.app.started,
+    isLoggedIn: state.user.isLoggedIn, //check xem nguoi dung co dang nhap hay khong
+  };
+};
