@@ -2,7 +2,10 @@ import actionTypes from "./actionTypes";
 import {
   getAllCodeService,
   createNewUserService,
+  getAllusers,
+  deleteUserService,
 } from "../../services/userService";
+import { toast } from "react-toastify";
 // export const fetchGenderStart = () => ({
 //   type: actionTypes.FETCH_GENDER_START,
 // });
@@ -86,7 +89,9 @@ export const createNewUser = (data) => {
       let res = await createNewUserService(data);
       console.log("check create user Redux: ", res);
       if (res && res.errCode === 0) {
+        toast.success("CREATE A NEW USER SUCCEED");
         dispatch(saveUserSuccess());
+        dispatch(fetchAllUsersStart());
       } else {
         dispatch(saveUserFailed());
       }
@@ -97,8 +102,61 @@ export const createNewUser = (data) => {
   };
 };
 export const saveUserSuccess = () => ({
-  type: "CREATE_USER_SUCCESS",
+  type: actionTypes.CREATE_USER_SUCCESS,
 });
 export const saveUserFailed = () => ({
-  type: "CREATE_USER_FAILED",
+  type: actionTypes.CREATE_USER_FAILED,
+});
+//==============================================
+export const fetchAllUsersStart = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllusers("ALL");
+      if (res && res.errCode === 0) {
+        dispatch(fetchAllUsersSuccess(res.users.reverse()));
+      } else {
+        dispatch(fetchAllUsersFailed());
+        toast.success("FETCH ALL USER ERROR");
+      }
+    } catch (e) {
+      dispatch(fetchAllUsersFailed());
+      toast.success("FETCH ALL USER ERROR");
+      console.log("fetch all userss failed : ", e);
+    }
+  };
+};
+export const fetchAllUsersSuccess = (data) => ({
+  type: actionTypes.FETCH_ALL_USERS_SUCCESS,
+  users: data,
+});
+export const fetchAllUsersFailed = () => ({
+  type: actionTypes.FETCH_ALL_USERS_FAILED,
+});
+//=======================================
+export const deleteAUser = (userId) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await deleteUserService(userId);
+      console.log("check create user Redux: ", res);
+      if (res && res.errCode === 0) {
+        toast.success("DELETE THE USER SUCCEED");
+        dispatch(deleteUserSuccess());
+        dispatch(fetchAllUsersStart());
+      } else {
+        toast.success("DELETE THE USER FAILED");
+        dispatch(deleteUserFailed());
+      }
+    } catch (e) {
+      dispatch(deleteUserFailed());
+      toast.success("DELETE THE USER FAILED");
+    }
+  };
+};
+
+export const deleteUserSuccess = () => ({
+  type: actionTypes.DELETE_USER_SUCCESS,
+});
+
+export const deleteUserFailed = () => ({
+  type: actionTypes.DELETE_USER_FAILED,
 });
