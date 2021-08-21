@@ -51,6 +51,8 @@
         "gender": "Gender",
         "position": "Position",
         "role-id": "Role ID",
-        "image": "Image"
+        "image": "Image",
+        "save": "Save User",
+        "edit": "Edit User"
     }
 }

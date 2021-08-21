@@ -49,7 +49,9 @@
         "gender": "Giới tính",
         "position": "Vị trí",
         "role-id": "Vai trò",
-        "image": "Hình ảnh"
+        "image": "Hình ảnh",
+        "save": "Lưu User",
+        "edit": "Lưu thay đổi"
     }
  
 }
