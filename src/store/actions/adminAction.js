@@ -137,7 +137,7 @@ export const fetchAllUsersFailed = () => ({
 export const deleteAUser = (userId) => {
   return async (dispatch, getState) => {
     try {
-      let res = await editUserService(userId);
+      let res = await deleteUserService(userId);
       console.log("check create user Redux: ", res);
       if (res && res.errCode === 0) {
         toast.success("DELETE THE USER SUCCEED");
