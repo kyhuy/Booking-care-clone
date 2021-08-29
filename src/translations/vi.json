@@ -52,6 +52,9 @@
         "image": "Hình ảnh",
         "save": "Lưu User",
         "edit": "Lưu thay đổi"
+    },
+    "homePage":{
+        "outstanding-doctor": "Bác sĩ nổi bậc",
+        "more-info":"Xem thêm"
     }
- 
 }

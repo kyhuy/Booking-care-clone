@@ -13,7 +13,7 @@
     },
     "banner":{
         "title1": "MEDICAL FLATFORM",
-        "title2": "HEALTH MAINTENANCE ORGANIZATION",
+        "title2": "COMPREHENSIVE HEALTH CARE",
         "child1": "Specialist examination",
         "child2": "Remote examination",
         "child3": "General examination",
@@ -54,5 +54,9 @@
         "image": "Image",
         "save": "Save User",
         "edit": "Edit User"
+    },
+    "homePage":{
+        "outstanding-doctor": "Outstanding Doctor",
+        "more-info":"Show more"
     }
 }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { FormattedMessage } from "react-intl";
 
 import { connect } from "react-redux";
 
@@ -27,13 +28,17 @@ class OutStandingDoctor extends Component {
   render() {
     let { language } = this.props;
     let arrDoctors = this.state.arrDoctors;
-    arrDoctors = arrDoctors.concat(arrDoctors).concat(arrDoctors);
+
     return (
       <div className="section-share section-outstanding-doctor">
         <div className="section-container">
           <div className="section-header">
-            <span className="title-section">Bác sĩ nổi bậc</span>
-            <button className="btn-section">Xem thêm</button>
+            <span className="title-section">
+              <FormattedMessage id="homePage.outstanding-doctor" />
+            </span>
+            <button className="btn-section">
+              <FormattedMessage id="homePage.more-info" />
+            </button>
           </div>
           <div className="section-body">
             <Slider {...this.props.settings}>
